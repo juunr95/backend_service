@@ -1,0 +1,7 @@
+version: 2
+endpoint: https://bgucztygthkmmckmkpvr.hasura.sa-east-1.nhost.run/v1/graphql
+admin_secret: bf85523054849038abea75621ed62c9e
+metadata_directory: metadata
+actions:
+  kind: synchronous
+  handler_webhook_baseurl: http://localhost:3000
