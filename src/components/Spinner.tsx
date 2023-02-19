@@ -1,4 +1,4 @@
-export const Spinner = () => {
+export const Spinner = (props: any) => {
   return (
     <div className="h-screen w-screen flex items-center justify-center">
       <div role="status">
