@@ -1,6 +1,7 @@
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 import Blocks from "../components/Blocks";
 import Hero from "../components/Hero";
+import User from "./User";
 
 
 function Dashboard() {
@@ -12,8 +13,9 @@ function Dashboard() {
 
   return (
     <>
-    <Hero updateBlocks={handleUpdateBlocks}/>
-    <Blocks blocks={blocks}/>
+      <User/>
+      <Hero updateBlocks={handleUpdateBlocks}/>
+      <Blocks blocks={blocks}/>
     </>
   )
 }
