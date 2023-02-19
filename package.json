@@ -9,8 +9,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.8",
+    "@nhost/react": "^1.13.5",
+    "@nhost/react-apollo": "^4.13.5",
+    "@reduxjs/toolkit": "^1.9.2",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.8.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
