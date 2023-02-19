@@ -12,7 +12,7 @@ interface EventProp {
 
 function Card({ event }: { event: EventProp }) {
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow">
+    <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow transition-transform hover:-translate-y-2 cursor-pointer">
       <div className="h-64">
         {event.image_url ? 
           <img className="rounded-t-lg object-cover w-full h-full border-none" src={event.image_url} alt="" />
