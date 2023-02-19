@@ -1,3 +1,5 @@
+import { FaMapMarkerAlt } from 'react-icons/fa';
+
 interface EventProp {
   image_url: string;
   name: string;
@@ -24,8 +26,9 @@ function Card({ event }: { event: EventProp }) {
           <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{event.name}</h5>
         </a>
         <p>{event.description}</p>
-        <div className="relative pt-4 flex items-center ">
-          <p className="inline-flex items-center">
+        <div className="relative pt-4 flex items-center">
+          <FaMapMarkerAlt className="text-red-500"/>
+          <p className="inline-flex items-center pl-2">
             {event.city.name} - {event.city.state}
           </p>
         </div>
