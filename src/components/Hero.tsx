@@ -83,6 +83,11 @@ function Hero(props: any) {
   const { loading, data, error } = useQuery(GET_CITIES);
   const apollo = useApolloClient();
 
+  useEffect(() => {
+    apollo.query({ query: GET_EVENTS })
+      .then(res => props?.updateBlocks(res.data.events));
+  }, []);
+
   async function handleSearch() {
     const eventName = eventNameRef.current?.value;
     const city = Number(cityNameRef.current?.value);

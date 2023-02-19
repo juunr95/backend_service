@@ -8,8 +8,6 @@ function Blocks({ blocks }: { blocks: any}) {
     setActive(!active);
   }
 
-
-
   return (
     <div className="max-w-6xl bg-white flex items-center justify-center mx-auto mt-24 flex-col mb-24">
       <div className="flex justify-between w-full">
@@ -19,7 +17,7 @@ function Blocks({ blocks }: { blocks: any}) {
           <a onClick={handleChange} className={active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercas font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercas font-semibold text-indigo-600 text-sm rounded-md"}>Mapa</a>
         </div>
       </div>
-      <div className="events w-full grid grid-cols-3 gap-x-4 mt-12">
+      <div className="events w-full grid grid-cols-3 gap-x-4 mt-12 gap-y-8">
         {blocks?.map((item: any) => (
           <Card key={item.id} event={item}/>
         ))}
