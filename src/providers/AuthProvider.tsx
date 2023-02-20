@@ -10,9 +10,9 @@ import { ForgotPassword } from "../screens/ForgotPassword";
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated, isLoading } = useAuthenticationStatus()
 
-  // if (isLoading) {
-  //   return <Spinner />
-  // }
+  if (isLoading) {
+    return <Spinner />
+  }
 
   if (!isAuthenticated) {
     return (
