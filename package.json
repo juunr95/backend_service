@@ -12,7 +12,6 @@
     "@apollo/client": "^3.7.8",
     "@nhost/react": "^1.13.5",
     "@nhost/react-apollo": "^4.13.5",
-    "@reduxjs/toolkit": "^1.9.2",
     "@vercel/analytics": "^0.1.10",
     "graphql": "^16.6.0",
     "react": "^18.2.0",
