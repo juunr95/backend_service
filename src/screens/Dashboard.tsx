@@ -6,16 +6,21 @@ import { EventInterface } from '../models/Event';
 
 function Dashboard() {
   const [blocks, setBlocks] = useState<EventInterface[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   function handleUpdateBlocks(blocks: EventInterface[]): void {
     return setBlocks(blocks);
   }
 
+  function handleIsLoading(loading: boolean): void {
+    return setIsLoading(loading);
+  }
+
   return (
     <>
       <User/>
-      <Hero updateBlocks={handleUpdateBlocks}/>
-      <Blocks blocks={blocks}/>
+      <Hero updateBlocks={handleUpdateBlocks} setIsLoading={handleIsLoading}/>
+      <Blocks blocks={blocks} isLoading={isLoading}/>
     </>
   )
 }

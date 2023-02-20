@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import Card from './Card';
 import { BiLoaderAlt } from 'react-icons/bi';
 import {EventInterface} from "../models/Event";
+import {render} from "react-dom";
 
-function Blocks({ blocks }: { blocks: EventInterface[]}) {
+function Blocks({ blocks, isLoading }: { blocks: EventInterface[], isLoading: boolean }) {
   const [active, setActive] = useState<boolean>(false);
 
   function handleChange(event: React.MouseEvent<HTMLAnchorElement>) {
@@ -29,13 +30,13 @@ function Blocks({ blocks }: { blocks: EventInterface[]}) {
           <a onClick={handleChange} className={active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercaes font-semibold text-indigo-600 text-sm rounded-md"}>Mapa</a>
         </div>
       </div>
-      {blocks ?
-        renderCards(blocks) :
-        <div className="w-full h-full flex items-center justify-center mt-12">
-          <BiLoaderAlt size={24} className="animate-spin text-indigo-500"/>
-        </div>
+      {
+        isLoading ?
+          <div className="w-full h-full flex items-center justify-center mt-12">
+            <BiLoaderAlt size={24} className="animate-spin text-indigo-500"/>
+          </div> :
+          renderCards(blocks)
       }
-      
     </div>
   )
 }

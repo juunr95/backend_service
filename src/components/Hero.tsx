@@ -79,7 +79,7 @@ const GET_EVENTS_BY_CITY_AND_NAME = gql`
   }
 `
 
-function Hero({ updateBlocks } : { updateBlocks: (blocks: EventInterface[]) => void}) {
+function Hero({ updateBlocks, setIsLoading } : { updateBlocks: (blocks: EventInterface[]) => void, setIsLoading: (loading: boolean) => void }) {
   const [eventName, setEventName] = useState<string>('');
   const [city, setCity] = useState<string>('');
 
@@ -89,9 +89,13 @@ function Hero({ updateBlocks } : { updateBlocks: (blocks: EventInterface[]) => v
   useEffect(() => {
     apollo.query({ query: GET_EVENTS })
       .then(res => updateBlocks(res.data.events));
+
+    setIsLoading(false);
   }, []);
 
   async function handleSearch() {
+    setIsLoading(true);
+
     const name = `%${eventName}%`;
     const cityNumber = Number(city);
 
@@ -121,6 +125,8 @@ function Hero({ updateBlocks } : { updateBlocks: (blocks: EventInterface[]) => v
     }
 
     updateBlocks(result.data.events);
+
+    setIsLoading(false);
   }
 
   return (
