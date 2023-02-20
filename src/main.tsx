@@ -6,6 +6,8 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
 import {Analytics} from "@vercel/analytics/react";
+import reportWebVitals from "./reportWebVitals";
+import {sendToVercelAnalytics} from "./vitals";
 
 const nhost = new NhostClient({
 	subdomain: 'bgucztygthkmmckmkpvr',
@@ -24,3 +26,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
 		<Analytics/>
 	</React.StrictMode>,
 )
+
+reportWebVitals(sendToVercelAnalytics)
