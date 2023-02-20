@@ -1,22 +1,22 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Card from './Card';
-import { Spinner } from './Spinner';
 import { BiLoaderAlt } from 'react-icons/bi';
+import {EventInterface} from "../models/Event";
 
-function Blocks({ blocks }: { blocks: any}) {
+function Blocks({ blocks }: { blocks: EventInterface[]}) {
   const [active, setActive] = useState<boolean>(false);
 
   function handleChange(event: React.MouseEvent<HTMLAnchorElement>) {
     setActive(!active);
   }
 
-  function renderCards(blocks: any) {
+  function renderCards(blocks: EventInterface[]) {
     return (
-      <div className="events w-full grid grid-cols-3 gap-x-4 mt-12 gap-y-8">
-        {blocks?.map((item: any) => (
-          <Card key={item.id} event={item}/>
-        ))}
-      </div>
+        <div className="events w-full grid grid-cols-3 gap-x-4 mt-12 gap-y-8">
+          {blocks?.map((item: EventInterface) => (
+              <Card key={item.id} event={item}/>
+          ))}
+        </div>
     )
   }
 
@@ -25,8 +25,8 @@ function Blocks({ blocks }: { blocks: any}) {
       <div className="flex justify-between w-full">
         <h3 className="font-bold text-2xl leading-loose">Blocos recomendados</h3>
         <div className="border-2 border-gray-100 rounded-md space-x-4 p-2 flex">
-          <a onClick={handleChange} className={!active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercas font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercas font-semibold text-indigo-600 text-sm rounded-md"}>Lista</a>
-          <a onClick={handleChange} className={active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercas font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercas font-semibold text-indigo-600 text-sm rounded-md"}>Mapa</a>
+          <a onClick={handleChange} className={!active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercase font-semibold text-indigo-600 text-sm rounded-md"}>Lista</a>
+          <a onClick={handleChange} className={active ? "bg-indigo-600 text-white cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md" : "cursor-pointer px-6 py-1 uppercaes font-semibold text-indigo-600 text-sm rounded-md"}>Mapa</a>
         </div>
       </div>
       {blocks ?

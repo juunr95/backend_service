@@ -1,25 +1,11 @@
 import { FaMapMarkerAlt } from 'react-icons/fa';
+import { EventInterface } from '../models/Event';
 
-interface EventProp {
-  image_url: string;
-  name: string;
-  description: string;
-  city: {
-    name: string;
-    state: string;
-  };
-}
-
-function Card({ event }: { event: EventProp }) {
+function Card({ event }: { event: EventInterface }) {
   return (
     <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow transition-all hover:-translate-y-2 cursor-pointer">
       <div className="h-64">
-        {event.image_url ? 
-          <img className="rounded-t-lg object-cover w-full h-full border-none" src={event.image_url} alt="" />
-          :
-          <></>
-        }
-        
+        <img className="rounded-t-lg object-cover w-full h-full border-none" src={event.image_url} alt="" />
       </div>
       <div className="p-5">
         <a href="#">

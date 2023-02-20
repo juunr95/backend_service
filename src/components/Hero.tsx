@@ -1,11 +1,14 @@
+import {useEffect, useState} from 'react';
+import { gql, useQuery } from '@apollo/client'
+import { useApolloClient } from '@apollo/client/react';
 import Art1 from '../assets/art1.svg';
 import Art2 from '../assets/art2.svg';
+import { EventInterface } from '../models/Event';
 
-import { useEffect, useRef } from 'react';
+interface Props {
+  updateBlocks: (blocks: EventInterface[]) => void
+}
 
-import { gql, useQuery } from '@apollo/client'
-import { useAuthenticated } from '@nhost/react';
-import { useApolloClient, useMutation } from '@apollo/client/react';
 
 const GET_CITIES = gql`
   query Cities {
@@ -76,51 +79,48 @@ const GET_EVENTS_BY_CITY_AND_NAME = gql`
   }
 `
 
-function Hero(props: any) {
-  const eventNameRef = useRef<HTMLInputElement>(null);
-  const cityNameRef = useRef<HTMLSelectElement>(null);
+function Hero({ updateBlocks } : { updateBlocks: (blocks: EventInterface[]) => void}) {
+  const [eventName, setEventName] = useState<string>('');
+  const [city, setCity] = useState<string>('');
 
-  const { loading, data, error } = useQuery(GET_CITIES);
+  const { data } = useQuery(GET_CITIES);
   const apollo = useApolloClient();
 
   useEffect(() => {
     apollo.query({ query: GET_EVENTS })
-      .then(res => props?.updateBlocks(res.data.events));
+      .then(res => updateBlocks(res.data.events));
   }, []);
 
   async function handleSearch() {
-    const eventName = eventNameRef.current?.value;
-    const city = Number(cityNameRef.current?.value);
+    const name = `%${eventName}%`;
+    const cityNumber = Number(city);
 
     let result = {} as any;
 
-    if (!eventName?.length && city === 0) {
-      result = await apollo.query({ query: GET_EVENTS, variables: {
-        name: `%${eventName}%`,
-        city: city,
-      }})
+    if (!eventName?.length && cityNumber === 0) {
+      result = await apollo.query({ query: GET_EVENTS})
     }
 
-    if (eventName && (city !== 0)) {
+    if (eventName && (cityNumber !== 0)) {
       result = await apollo.query({ query: GET_EVENTS_BY_CITY_AND_NAME, variables: {
-        name: `%${eventName}%`,
-        city: city,
+        name,
+        city
       }})
     }
 
-    if (eventName && city === 0) {
+    if (eventName && cityNumber === 0) {
       result = await apollo.query({ query: GET_EVENTS_BY_NAME, variables: {
-        name: `%${eventName}%`,
+        name,
       }})
     }
 
-    if (!eventName?.length && city !== 0) {
+    if (!eventName?.length && cityNumber !== 0) {
       result = await apollo.query({ query: GET_EVENTS_BY_CITY, variables: {
         city,
       }})
     }
 
-    props.updateBlocks(result.data.events);
+    updateBlocks(result.data.events);
   }
 
   return (
@@ -135,11 +135,11 @@ function Hero(props: any) {
           </div>
           <div className="search mx-auto max-w-6xl bg-white shadow-md p-8 rounded-lg border-1 border-gray-200 flex space-x-6">
             <div className="relative flex w-2/5">
-              <input ref={eventNameRef} className="pl-10 py-4 bg-purple-50 w-full rounded-md" placeholder="Pesquise pelo nome" type="text" />
+              <input onChange={e => setEventName(e.target.value)} className="pl-10 py-4 bg-purple-50 w-full rounded-md" placeholder="Pesquise pelo nome" type="text" />
               <i className="search-icon"></i>
             </div>
             <div className="relative flex w-2/5">
-              <select ref={cityNameRef} className="city-selector pl-10 py-2 bg-purple-50 w-full rounded-md" placeholder="Selecione uma cidade">
+              <select onChange={e => setCity(e.target.value)} className="city-selector pl-10 py-2 bg-purple-50 w-full rounded-md" placeholder="Selecione uma cidade">
               <option value="">Selecione uma cidade</option>
                 {data?.cities.map((city : any) => (
                   <option key={city.id} value={city.id}>{city.name}</option>

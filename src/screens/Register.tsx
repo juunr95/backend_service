@@ -1,11 +1,10 @@
 import { useSignUpEmailPassword } from '@nhost/react'
 import { FormEvent } from "react"
-import { Navigate } from 'react-router-dom';
 import { Spinner } from '../components/Spinner';
 import { NeedEmailVerification } from './NeedEmailVerification';
 
 export const Register = () => {
-  const { signUpEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
+  const { signUpEmailPassword, isLoading, needsEmailVerification, error } =
     useSignUpEmailPassword();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -13,7 +12,7 @@ export const Register = () => {
     const form = new FormData(event.currentTarget);
     const [ firstName, secondName, email, password ] = form.values();
 
-    const data = await signUpEmailPassword(email.toString(), password.toString(), {
+    await signUpEmailPassword(email.toString(), password.toString(), {
       displayName: `${firstName.toString()} ${secondName.toString()}`,
       defaultRole: 'user',
       metadata: {

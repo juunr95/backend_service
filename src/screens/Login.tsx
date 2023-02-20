@@ -1,19 +1,18 @@
 import { useSignInEmailPassword } from '@nhost/react'
-import { FormEvent } from "react"
-import { Navigate, useNavigate } from 'react-router-dom';
-import { Spinner } from '../components/Spinner';
+import {FormEvent, useState} from "react"
+import { Navigate } from 'react-router-dom';
 import { BiLoaderAlt } from 'react-icons/bi';
 
-export const Login = (props: any) => {
+export const Login = () => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
   const { signInEmailPassword, isLoading, isSuccess, needsEmailVerification, isError, error } =
     useSignInEmailPassword();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const [ email, password ] = form.values();
-
-    const data = await signInEmailPassword(email.toString(), password.toString());
+    await signInEmailPassword(email.toString(), password.toString());
 
     if (isSuccess) {      
       return <Navigate to="/" replace={true}/>
@@ -32,11 +31,11 @@ export const Login = (props: any) => {
             { isError || needsEmailVerification ? <span className="text-center text-red-500">{error?.message || "User not verified"}</span> : <></>}
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-                <input type="email" autoComplete="off" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                <input onChange={e => setEmail(e.target.value)} type="email" autoComplete="off" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
               </div>
               <div>
                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+                <input onChange={e => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-start">
