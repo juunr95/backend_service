@@ -1,13 +1,13 @@
-import {NhostClient, NhostProvider} from '@nhost/react';
-import {NhostApolloProvider} from '@nhost/react-apollo';
+import { NhostClient, NhostProvider } from '@nhost/react';
+import { NhostApolloProvider } from '@nhost/react-apollo';
+import { sendToVercelAnalytics } from "./vitals";
+import { Analytics } from "@vercel/analytics/react";
 import AuthProvider from './providers/AuthProvider';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import {Analytics} from "@vercel/analytics/react";
 import reportWebVitals from "./reportWebVitals";
-import {sendToVercelAnalytics} from "./vitals";
 
 const nhost = new NhostClient({
 	subdomain: 'bgucztygthkmmckmkpvr',

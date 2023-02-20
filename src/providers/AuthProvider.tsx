@@ -6,7 +6,6 @@ import { Routes, Route } from 'react-router-dom';
 import { Register } from '../screens/Register';
 import { ForgotPassword } from "../screens/ForgotPassword";
 
-
 const AuthProvider = ({ children }: { children: JSX.Element }) => {
   const { isAuthenticated, isLoading } = useAuthenticationStatus()
 

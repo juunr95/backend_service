@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import Card from './Card';
 import { BiLoaderAlt } from 'react-icons/bi';
-import {EventInterface} from "../models/Event";
-import {render} from "react-dom";
+import { EventInterface } from "../models/Event";
+import Card from './Card';
 
 function Blocks({ blocks, isLoading }: { blocks: EventInterface[], isLoading: boolean }) {
   const [active, setActive] = useState<boolean>(false);
 
-  function handleChange(event: React.MouseEvent<HTMLAnchorElement>) {
+  function handleChange() {
     setActive(!active);
   }
 

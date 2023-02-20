@@ -1,4 +1,3 @@
-
 import { Routes, Route, BrowserRouter, Navigate } from 'react-router-dom';
 import Dashboard from './screens/Dashboard';
 

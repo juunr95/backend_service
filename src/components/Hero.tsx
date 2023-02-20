@@ -1,14 +1,9 @@
 import {useEffect, useState} from 'react';
 import { gql, useQuery } from '@apollo/client'
 import { useApolloClient } from '@apollo/client/react';
+import { EventInterface } from '../models/Event';
 import Art1 from '../assets/art1.svg';
 import Art2 from '../assets/art2.svg';
-import { EventInterface } from '../models/Event';
-
-interface Props {
-  updateBlocks: (blocks: EventInterface[]) => void
-}
-
 
 const GET_CITIES = gql`
   query Cities {

@@ -1,8 +1,8 @@
 import { useState } from "react";
+import { EventInterface } from '../models/Event';
 import Blocks from "../components/Blocks";
 import Hero from "../components/Hero";
 import User from "./User";
-import { EventInterface } from '../models/Event';
 
 function Dashboard() {
   const [blocks, setBlocks] = useState<EventInterface[]>([]);
