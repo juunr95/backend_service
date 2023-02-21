@@ -10,7 +10,7 @@ function Blocks({ blocks, isLoading }: { blocks: EventInterface[], isLoading: bo
     setActive(!active);
   }
 
-  function renderCards(blocks: EventInterface[]) {
+  function renderCards() {
     return (
         <div className="events w-full grid grid-cols-3 gap-x-4 mt-12 gap-y-8">
           {blocks?.map((item: EventInterface) => (
@@ -34,7 +34,7 @@ function Blocks({ blocks, isLoading }: { blocks: EventInterface[], isLoading: bo
           <div className="w-full h-full flex items-center justify-center mt-12">
             <BiLoaderAlt size={24} className="animate-spin text-indigo-500"/>
           </div> :
-          renderCards(blocks)
+          renderCards()
       }
     </div>
   )

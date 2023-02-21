@@ -1,7 +1,5 @@
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import { gql, useQuery } from '@apollo/client'
-import { useApolloClient } from '@apollo/client/react';
-import { EventInterface } from '../models/Event';
 import Art1 from '../assets/art1.svg';
 import Art2 from '../assets/art2.svg';
 
@@ -14,114 +12,14 @@ const GET_CITIES = gql`
   }
 `
 
-const GET_EVENTS = gql`
-  query {
-    events {
-      id,
-      name,
-      description,
-      image_url,
-      city {
-        name
-        state,
-      }
-    }
-  }
-`
-
-const GET_EVENTS_BY_NAME = gql`
-  query eventByName($name: String) {
-    events(where: { name: { _ilike: $name }}) {
-      id
-      name,
-      description,
-      image_url,
-      city {
-        name
-        state,
-      }
-    }
-  }
-`
-
-const GET_EVENTS_BY_CITY = gql`
-  query eventsByCity($city: bigint) {
-    events(where: {location: { _eq: $city }}) {
-      id,
-      name,
-      description,
-      image_url,
-      city {
-        name,
-        state,
-      }
-    }
-  }
-`
-
-const GET_EVENTS_BY_CITY_AND_NAME = gql`
-  query eventByCityAndName($name: String, $city: bigint) {
-    events(where: { _and: [{location: { _eq: $city }}, {name: { _ilike: $name}}]}) {
-      id,
-      name,
-      description,
-      image_url,
-      city {
-        name,
-        state,
-      }
-    }
-  }
-`
-
-function Hero({ updateBlocks, setIsLoading } : { updateBlocks: (blocks: EventInterface[]) => void, setIsLoading: (loading: boolean) => void }) {
+function Hero(props: any) {
   const [eventName, setEventName] = useState<string>('');
   const [city, setCity] = useState<string>('');
 
   const { data } = useQuery(GET_CITIES);
-  const apollo = useApolloClient();
-
-  useEffect(() => {
-    apollo.query({ query: GET_EVENTS })
-      .then(res => updateBlocks(res.data.events));
-
-    setIsLoading(false);
-  }, []);
 
   async function handleSearch() {
-    setIsLoading(true);
-
-    const name = `%${eventName}%`;
-    const cityNumber = Number(city);
-
-    let result = {} as any;
-
-    if (!eventName?.length && cityNumber === 0) {
-      result = await apollo.query({ query: GET_EVENTS})
-    }
-
-    if (eventName && (cityNumber !== 0)) {
-      result = await apollo.query({ query: GET_EVENTS_BY_CITY_AND_NAME, variables: {
-        name,
-        city
-      }})
-    }
-
-    if (eventName && cityNumber === 0) {
-      result = await apollo.query({ query: GET_EVENTS_BY_NAME, variables: {
-        name,
-      }})
-    }
-
-    if (!eventName?.length && cityNumber !== 0) {
-      result = await apollo.query({ query: GET_EVENTS_BY_CITY, variables: {
-        city,
-      }})
-    }
-
-    updateBlocks(result.data.events);
-
-    setIsLoading(false);
+    return props.searchHandler(eventName, city);
   }
 
   return (
