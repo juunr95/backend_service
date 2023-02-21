@@ -1,24 +1,24 @@
-import {useCallback, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import {EventInterface} from "../models/Event";
-import {gql, OnDataOptions, useQuery, useSubscription} from "@apollo/client";
+import {gql, useQuery } from "@apollo/client";
 import { useApolloClient } from '@apollo/client/react';
 
-const SUBSCRIPTION_EVENTS = gql`
-  subscription Events {
-    events ( order_by: { createdAt: desc }, limit: 1) {
-      id,
-      name,
-      description,
-      image_url,
-      location,
-      city {
-        id,
-        name,
-        state,
-      }
-    }
-  }
-`
+// const SUBSCRIPTION_EVENTS = gql`
+//   subscription Events {
+//     events ( order_by: { createdAt: desc }, limit: 1) {
+//       id,
+//       name,
+//       description,
+//       image_url,
+//       location,
+//       city {
+//         id,
+//         name,
+//         state,
+//       }
+//     }
+//   }
+// `
 
 const GET_EVENTS = gql`
   query Events($where: events_bool_exp!) {
@@ -40,25 +40,9 @@ const GET_EVENTS = gql`
 
 const useGetEvents = () => {
 	const [events, setEvents] = useState<EventInterface[]>([]);
-	const [shouldSkip, setShouldSkip] = useState<boolean>(true);
 	const apollo = useApolloClient();
 
-	const onSubscriptionData = useCallback(
-		(result: OnDataOptions) => {
-			const { data } = result.data;
-
-			if (!events.find(el => el.id === data.events[0].id)) {
-				updateEvents(data.events);
-			}
-	}, [events]);
-
 	const { data: queryData, loading: loadingQuery } = useQuery(GET_EVENTS, {variables: { "where": {} }});
-
-	useSubscription(SUBSCRIPTION_EVENTS, {
-		onData: onSubscriptionData,
-		shouldResubscribe: true,
-		skip: shouldSkip || loadingQuery,
-	})
 
 	useEffect(() => {
 		const { events } = queryData ?? {};
@@ -68,9 +52,23 @@ const useGetEvents = () => {
 		}
 	}, [queryData]);
 
+	// const onSubscriptionData = useCallback(
+	// 	(result: OnDataOptions) => {
+	// 		const { data } = result.data;
+	//
+	// 		if (!events.find(el => el.id === data.events[0].id)) {
+	// 			updateEvents(data.events);
+	// 		}
+	// }, [events]);
+	//
+	// useSubscription(SUBSCRIPTION_EVENTS, {
+	// 	onData: onSubscriptionData,
+	// 	shouldResubscribe: true,
+	// 	skip: shouldSkip || loadingQuery,
+	// })
+
 	function updateEvents(updatedEvents: EventInterface[]) {
-		setEvents(prevState => [...prevState, ...updatedEvents]);
-		setShouldSkip(false);
+		setEvents(updatedEvents);
 	}
 
 	async function searchEvent(name: string, city: string) {
@@ -94,7 +92,7 @@ const useGetEvents = () => {
 
 		const { data } = await apollo.query({ query: GET_EVENTS, variables, fetchPolicy: "network-only" });
 
-		setEvents(data.events);
+		updateEvents(data.events);
 	}
 
 	return {
