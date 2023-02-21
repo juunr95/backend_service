@@ -64,7 +64,7 @@ const useGetEvents = () => {
 		const { events } = queryData ?? {};
 
 		if (events) {
-			updateEvents(events);
+			setEvents(events);
 		}
 	}, [queryData]);
 
