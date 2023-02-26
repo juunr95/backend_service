@@ -1,22 +1,12 @@
 import {useState} from 'react';
-import { gql, useQuery } from '@apollo/client'
 import Art1 from '../assets/art1.svg';
 import Art2 from '../assets/art2.svg';
-
-const GET_CITIES = gql`
-  query Cities {
-    cities (order_by: { name: asc }) {
-      id,
-      name
-    }
-  }
-`
+import useGetCities from "../hooks/useGetCities";
 
 function Hero(props: any) {
   const [eventName, setEventName] = useState<string>('');
   const [city, setCity] = useState<string>('');
-
-  const { data } = useQuery(GET_CITIES);
+  const { cities } = useGetCities();
 
   async function handleSearch() {
     return props.searchHandler(eventName, city);
@@ -40,7 +30,7 @@ function Hero(props: any) {
             <div className="relative flex w-2/5">
               <select onChange={e => setCity(e.target.value)} className="city-selector pl-10 py-2 bg-purple-50 w-full rounded-md" placeholder="Selecione uma cidade">
               <option value="">Selecione uma cidade</option>
-                {data?.cities.map((city : any) => (
+                {cities?.map((city : any) => (
                   <option key={city.id} value={city.id}>{city.name}</option>
                 ))}
               </select>
