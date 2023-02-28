@@ -1,7 +1,7 @@
-import { NhostClient, NhostProvider } from '@nhost/react';
-import { NhostApolloProvider } from '@nhost/react-apollo';
-import { sendToVercelAnalytics } from "./vitals";
-import { Analytics } from "@vercel/analytics/react";
+import {NhostClient, NhostProvider} from '@nhost/react';
+import {NhostApolloProvider} from '@nhost/react-apollo';
+import {sendToVercelAnalytics} from "./vitals";
+import {Analytics} from "@vercel/analytics/react";
 import AuthProvider from './providers/AuthProvider';
 import React from 'react'
 import ReactDOM from 'react-dom/client'
@@ -10,8 +10,8 @@ import './index.css'
 import reportWebVitals from "./reportWebVitals";
 
 const nhost = new NhostClient({
-	subdomain: 'bgucztygthkmmckmkpvr',
-	region: 'sa-east-1',
+	subdomain: import.meta.env.VITE_NHOST_SUBDOMAIN,
+	region: import.meta.env.VITE_NHOST_REGION,
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
