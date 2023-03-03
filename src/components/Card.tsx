@@ -9,7 +9,7 @@ function Card({ event }: { event: EventInterface }) {
       </div>
       <div className="p-5">
         <a href="#">
-          <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white">{event.name}</h5>
+          <h5 className="mb-2 text-lg font-bold tracking-tight text-gray-900">{event.name}</h5>
         </a>
         <p>{event.description}</p>
         <div className="relative pt-4 flex items-center">
