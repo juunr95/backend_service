@@ -8,6 +8,10 @@
   font-family: Poppins, Inter, 'sans-serif';
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 .search-icon {
   background: url('./assets/search.svg') no-repeat;
   position: absolute;
