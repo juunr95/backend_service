@@ -1,8 +1,7 @@
 import { Login } from "../screens/Login";
 import { useAuthenticationStatus } from '@nhost/react'
 import { Spinner } from "../components/Spinner";
-import { BrowserRouter } from "react-router-dom";
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import { Register } from '../screens/Register';
 import { ForgotPassword } from "../screens/ForgotPassword";
 import React from "react";

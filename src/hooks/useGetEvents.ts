@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from "react";
+import {useCallback, useState} from "react";
 import {EventInterface} from "../models/Event";
 import {gql, useQuery } from "@apollo/client";
 import { useApolloClient } from '@apollo/client/react';
@@ -28,7 +28,7 @@ const useGetEvents = () => {
 		setEvents(data.events);
 	}, []);
 
-	const { data, loading }
+	const { loading }
 		= useQuery(GET_EVENTS, {
 			variables: { "where": {} },
 		  onCompleted,

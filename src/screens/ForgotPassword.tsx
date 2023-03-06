@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 import { Spinner } from '../components/Spinner';
 
 export const ForgotPassword = () => {
-  const { resetPassword, isSent, isLoading, isError, error } =
+  const { resetPassword, isSent, isLoading, error } =
     useResetPassword();
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -12,7 +12,7 @@ export const ForgotPassword = () => {
     const form = new FormData(event.currentTarget);
     const [ email ] = form.values();
 
-    const data = await resetPassword(email.toString());
+    await resetPassword(email.toString());
 
     if (isSent) {      
       return <Navigate to="/"/>
