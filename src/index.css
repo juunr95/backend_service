@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 * {
-  font-family: 'Poppins', 'Inter', Verdana, 'sans-serif';
+  font-family: Poppins, Inter, Verdana, sans-serif;
 }
 
 ::-webkit-scrollbar {
