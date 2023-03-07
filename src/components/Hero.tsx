@@ -36,7 +36,7 @@ function Hero(props: any) {
               </select>
               <i className="location-icon"></i>
             </div>
-            <button onClick={handleSearch} className="bg-indigo-600 px-6 py-2 uppercase font-semibold text-white rounded-md w-1/5">Buscar agora</button>
+            <button onClick={handleSearch} className="bg-indigo-600 px-6 py-2 uppercase font-semibold text-white rounded-md w-1/5 hover:bg-indigo-700">Buscar agora</button>
           </div>
         </div>
       </div>

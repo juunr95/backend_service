@@ -18,6 +18,8 @@ function Blocks({ blocks, isLoading }: BlockProps) {
     setTab(tab);
   }
 
+  console.log(isLoading);
+
   if (isLoading) {
     return (
       <div className="w-full h-full flex items-center justify-center mt-12">
@@ -32,11 +34,11 @@ function Blocks({ blocks, isLoading }: BlockProps) {
         <h3 className="font-bold text-2xl leading-loose">Blocos recomendados</h3>
         <div className="border-2 border-gray-100 rounded-md space-x-4 p-2 flex">
           <a onClick={() => handleChange(TAB_LIST)}
-             className={`cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md ${tab === TAB_LIST ? "bg-indigo-600 text-white" : "text-indigo-600"}`}>
+             className={`cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md ${tab === TAB_LIST ? "bg-indigo-600 text-white hover:bg-indigo-700" : "text-indigo-600"}`}>
             Lista
           </a>
           <a onClick={() => handleChange(TAB_MAP)}
-             className={`cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md ${tab === TAB_MAP ? "bg-indigo-600 text-white" : "text-indigo-600"}`}>
+             className={`cursor-pointer px-6 py-1 uppercase font-semibold text-sm rounded-md ${tab === TAB_MAP ? "bg-indigo-600 text-white hover:bg-indigo-700" : "text-indigo-600"}`}>
             Mapa
           </a>
         </div>

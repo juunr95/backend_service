@@ -23,9 +23,11 @@ const GET_EVENTS = gql`
 const useGetEvents = () => {
 	const [events, setEvents] = useState<EventInterface[]>([]);
 	const apollo = useApolloClient();
+	const [isLoading, setLoading] = useState(false);
 
 	const onCompleted = useCallback((data: any) => {
 		setEvents(data.events);
+		setLoading(false);
 	}, []);
 
 	const { loading }
@@ -35,6 +37,7 @@ const useGetEvents = () => {
 		});
 
 	async function searchEvent(name: string, city: string) {
+		setLoading(true);
 		const variables = { "where": {} };
 
 		if (name.length) {
@@ -64,7 +67,7 @@ const useGetEvents = () => {
 
 	return {
 		events,
-		loading,
+		loading : loading || isLoading,
 		searchEvent
 	}
 }
